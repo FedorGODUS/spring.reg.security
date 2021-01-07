@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,6 +24,45 @@ public class User implements UserDetails {
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chief_id")
+    private User chief;
+
+    @Column(name = "creation_date")
+    private Date creationDate;
+
+    @Column(name = "changing_date")
+    private Date changingDate;
+
+    @OneToMany(mappedBy = "owner", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Comment> creatorOfComments;
+
+    @OneToMany(mappedBy = "owner", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Feedback> reports;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Feedback> creatorOfReports;
+
+    @OneToMany(mappedBy = "owner", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Task> creatorOfTask;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<News> news;
 
     public User() {
     }

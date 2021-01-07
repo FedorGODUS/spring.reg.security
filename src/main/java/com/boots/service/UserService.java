@@ -5,6 +5,7 @@ import com.boots.entity.User;
 import com.boots.repository.RoleRepository;
 import com.boots.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
+
+
     @PersistenceContext
     private EntityManager em;
     @Autowired
